@@ -1,0 +1,39 @@
+Uber_Ride_Analysis:
+
+#import libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#load dataset
+df = pd.read_csv("uber_data.csv")
+df.head()
+df.shape
+df.info()
+df.describe()
+df.isnull().sum()
+df.drop_duplicates(inplace=True)
+df['Date'] = pd.to_datetime(df['Date'])
+df['Hour'] = df['Date'].dt.hour
+df['Hour'].value_counts().sort_index()
+df['Date'].dt.day_name().value_counts()
+plt.figure(figsize=(8,5))
+sns.countplot(x='Hour', data=df)
+plt.title("Ride Demand by Hour")
+plt.show()
+plt.figure(figsize=(7,5))
+df['Date'].dt.day_name().value_counts().plot(kind='bar')
+plt.title("Weekly Ride Demand")
+plt.show()
+sns.heatmap(df.corr(), annot=True)
+plt.show()
+
+INSIGHTS:
+
+1. Peak ride demand occurs during morning and evening hours.
+2. Weekdays have higher ride bookings compared to weekends.
+3. Certain hours show consistent high demand patterns.
+4. Data cleaning improved data quality and analysis accuracy.
+
+
